@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import searchIcon from '../assets/search.png';
 
+// Search component
 const Search = ({ fetchData }) => {
     const [query, setQuery] = useState('');
     const navigate = useNavigate();

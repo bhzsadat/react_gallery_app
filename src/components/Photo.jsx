@@ -22,14 +22,3 @@ Photo.propTypes = {
 
 export default Photo;
 
-// const Photo = ({ photo }) => {
-    
-//     const src = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`;
-//     return (
-//         <li>
-//             <img src={src} alt={photo.title} />
-//         </li>
-//     );
-// };
-
-// export default Photo;

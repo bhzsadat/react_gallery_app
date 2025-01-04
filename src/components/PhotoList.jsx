@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams } from "react-router-dom";
 import Photo from "./Photo";
 
+// PhotoList component
 const PhotoList = ({ photos, title}) => {
     const { query } = useParams();
     const dynamicTitle = query ? `Search Results for ${query}` : title || 'Gallery';

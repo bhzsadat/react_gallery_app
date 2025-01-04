@@ -8,11 +8,13 @@ import PhotoList from './components/PhotoList';
 
 const validRoutes = ['cats', 'dogs', 'computers'];
 
+// App component
 function App() {
   const [photos, setPhotos] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   
+  // Fetch data from Flickr API
   const fetchData = async (query) => {
     try {
       const response = await fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`);
@@ -26,45 +28,26 @@ function App() {
       console.error("Error fetching data:", error);
       setPhotos([]);
     }
-    // const response = await fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`);
-    // const data = await response.json();
-    // console.log(data);
-    // setPhotos(data.photos.photo);
   };
 
+  // Fetch new data
   useEffect(() => {
     const path = location.pathname.split('/')[1];
     if (validRoutes.includes(path)) {
       fetchData(path);
     } else if (path === 'search') {
       const query = location.pathname.split('/')[2];
-      if (query) fetchData(query);
-    } else {
-      navigate('/not-found');
-    }
-  }, [location, navigate]);
+      fetchData(query);
+    } 
+  }, [location]);
 
+  // Handle route change
   const handleRouteChange = (query) => {
     navigate(`/search/${query}`);
   };
 
-  // useEffect(() => {
-  //   const path = location.pathname.split('/')[1];
-  //   if (validRoutes.includes(path)) {
-  //     fetchData(path);
-  //   } else if (path === 'search') {
-  //     const query = location.pathname.split('/')[2];
-  //     fetchData(query);
-  //   } else {
-  //     fetchData('cats');
-  //   }
-  // }, [location]);
 
-  // const handleRouteChange = (query) => {
-  //   //fetchData(query);
-  //   navigate(`/search/${query}`);
-  // };
-
+  // ROUTES
   return (
     <div>
       <Search fetchData={fetchData} />
@@ -81,6 +64,7 @@ function App() {
   )
 }
 
+// 404 - Not Found
 const NotFound = () => (
   <div>
     <h2>404 - Not Found</h2>
