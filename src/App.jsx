@@ -30,7 +30,7 @@ function App() {
     }
   };
 
-  // Fetch new data
+  // Redirects
   useEffect(() => {
     const path = location.pathname.split('/')[1];
     if (validRoutes.includes(path)) {
@@ -38,8 +38,10 @@ function App() {
     } else if (path === 'search') {
       const query = location.pathname.split('/')[2];
       fetchData(query);
-    } 
-  }, [location]);
+    } else if (path === '') {
+      navigate('/cats'); 
+    }
+  }, [location, navigate]);
 
   // Handle route change
   const handleRouteChange = (query) => {
@@ -53,7 +55,6 @@ function App() {
       <Search fetchData={fetchData} />
       <Nav handleRouteChange={handleRouteChange} />
       <Routes>
-        <Route path='/' element={<PhotoList photos={photos} title="Home" />} />
         <Route path='/cats' element={<PhotoList photos={photos} title="Cats"/>} />
         <Route path='/dogs' element={<PhotoList photos={photos} title="Dogs"/>} />
         <Route path='/computers' element={<PhotoList photos={photos} title="Computers" />} />
